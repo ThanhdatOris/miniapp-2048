@@ -1,6 +1,40 @@
 import { TileValue } from "@/types/game";
 
-// Glassmorphism tile styles with dynamic colors
+// Enhanced Glassmorphism tile styles
+export const getTileClass = (value: TileValue, isNew?: boolean, isMerged?: boolean) => {
+  let baseClass = '';
+  let animationClass = '';
+  
+  // Base tile class
+  if (value === 0) {
+    baseClass = 'tile-empty';
+  } else {
+    baseClass = `tile-${value}`;
+  }
+  
+  // Animation classes
+  if (isNew) {
+    animationClass += ' tile-pop';
+  }
+  if (isMerged) {
+    animationClass += ' tile-merge';
+  }
+  
+  return `${baseClass}${animationClass}`.trim();
+};
+
+export const getTileTextClass = (value: TileValue) => {
+  if (value >= 1024) return 'text-xs';
+  if (value >= 128) return 'text-sm';
+  if (value >= 16) return 'text-lg';
+  return 'text-xl';
+};
+
+export const shouldShowGlow = (value: TileValue) => {
+  return value === 2048;
+};
+
+// Legacy glassmorphism function for backward compatibility
 export const getGlassTileStyle = (value: TileValue, isDarkMode: boolean = false) => {
   if (value === 0) {
     return "bg-white/10 backdrop-blur-sm border border-white/20 text-transparent";

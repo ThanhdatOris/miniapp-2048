@@ -9,24 +9,24 @@ export default function ScoreBoard({ score = 0, highScore = 0 }: ScoreBoardProps
   return (
     <div className="flex gap-3 mb-6">
       {/* Current Score */}
-      <div className="flex-1 glass rounded-lg p-3 shadow-lg border border-white/10">
+      <div className="flex-1 glass-card p-4 shadow-lg">
         <div className="text-center">
-          <p className="text-xs font-semibold text-white/70 uppercase tracking-wide">
+          <p className="text-xs font-semibold theme-text-secondary uppercase tracking-wide mb-1">
             Điểm
           </p>
-          <p className="text-2xl font-bold text-white drop-shadow">
+          <p className="text-2xl font-bold theme-text-primary">
             {score.toLocaleString()}
           </p>
         </div>
       </div>
 
       {/* High Score */}
-      <div className="flex-1 glass rounded-lg p-3 shadow-lg border border-white/10">
+      <div className="flex-1 glass-card p-4 shadow-lg">
         <div className="text-center">
-          <p className="text-xs font-semibold text-white/70 uppercase tracking-wide">
+          <p className="text-xs font-semibold theme-text-secondary uppercase tracking-wide mb-1">
             Điểm cao
           </p>
-          <p className="text-2xl font-bold text-white drop-shadow">
+          <p className="text-2xl font-bold theme-text-primary">
             {highScore.toLocaleString()}
           </p>
         </div>

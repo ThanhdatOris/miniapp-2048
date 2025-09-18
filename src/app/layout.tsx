@@ -1,6 +1,6 @@
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "@/contexts/ThemeContext";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });

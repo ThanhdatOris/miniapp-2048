@@ -1,13 +1,13 @@
 
 'use client';
 
-import { useState } from 'react';
+import ControlButtons from '@/components/game/ControlButtons';
 import GameBoard from '@/components/game/GameBoard';
 import ScoreBoard from '@/components/game/ScoreBoard';
-import ControlButtons from '@/components/game/ControlButtons';
 import { ThemeSelector } from '@/components/ui/ThemeSelector';
-import { useGame } from '@/hooks/useGame';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useGame } from '@/hooks/useGame';
+import { useState } from 'react';
 
 export default function Home() {
   const { gameState, move, restart } = useGame();
