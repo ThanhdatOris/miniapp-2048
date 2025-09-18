@@ -2,6 +2,8 @@
 
 import { useControls } from "@/hooks/useControls";
 import { Direction, TileValue } from "@/types/game";
+import { useTheme } from "@/contexts/ThemeContext";
+import { getGlassTileStyle } from "@/utils/tileStyles";
 
 interface GameBoardProps {
   board: TileValue[][];

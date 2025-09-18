@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -7,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "2048 - Miniapp Game",
   description: "Trò chơi 2048 tối ưu cho mobile. Kết hợp các ô để đạt đến 2048!",
-  keywords: ["2048", "game", "mobile", "puzzle"],
+  keywords: ["2048", "game", "mobile", "puzzle", "glassmorphism"],
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -20,7 +21,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#f97316",
+  themeColor: "#3b82f6",
 };
 
 export default function RootLayout({
@@ -40,7 +41,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} h-full game-container`}>
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

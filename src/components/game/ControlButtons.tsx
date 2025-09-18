@@ -16,7 +16,7 @@ export default function ControlButtons({
       {/* Restart Button */}
       <button
         onClick={onRestart}
-        className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg shadow-md transition-colors duration-200 active:scale-95 flex items-center justify-center gap-2"
+        className="flex-1 glass-button text-white font-semibold py-3 px-4 rounded-lg shadow-lg transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 border border-orange-400/30"
       >
         <i className="fas fa-redo-alt"></i>
         Chơi lại
@@ -26,10 +26,10 @@ export default function ControlButtons({
       <button
         onClick={onUndo}
         disabled={!canUndo}
-        className={`flex-1 font-semibold py-3 px-4 rounded-lg shadow-md transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 ${
+        className={`flex-1 glass-button font-semibold py-3 px-4 rounded-lg shadow-lg transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 ${
           canUndo
-            ? 'bg-blue-500 hover:bg-blue-600 text-white'
-            : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+            ? 'text-white border border-blue-400/30 hover:border-blue-400/50'
+            : 'text-white/40 border border-white/10 cursor-not-allowed opacity-50'
         }`}
       >
         <i className="fas fa-undo-alt"></i>
