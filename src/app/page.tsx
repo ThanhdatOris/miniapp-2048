@@ -1,103 +1,78 @@
-import Image from "next/image";
+
+    "use client";
+
+import ControlButtons from "@/components/game/ControlButtons";
+import GameBoard from "@/components/game/GameBoard";
+import ScoreBoard from "@/components/game/ScoreBoard";
+import { useGame } from "@/hooks/useGame";
+import { Direction } from "@/types/game";
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const { gameState, move, restart, undo } = useGame();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const handleMove = (direction: Direction) => {
+    move(direction);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-orange-100 to-orange-200 dark:from-gray-900 dark:to-gray-800 p-4">
+      <div className="max-w-md mx-auto">
+        {/* Header */}
+        <div className="text-center mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-2">
+            2048
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300 text-sm">
+            Kết hợp các ô để đạt đến ô 2048!
+          </p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+
+        {/* Score Board */}
+        <ScoreBoard 
+          score={gameState.score} 
+          highScore={gameState.highScore} 
+        />
+
+        {/* Game Board */}
+        <div className="mb-6">
+          <GameBoard 
+            board={gameState.board} 
+            onMove={handleMove}
+            disabled={gameState.isGameOver || gameState.isWon}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </div>
+
+        {/* Control Buttons */}
+        <ControlButtons 
+          onRestart={restart}
+          onUndo={undo}
+          canUndo={gameState.canUndo}
+        />
+
+        {/* Game Status */}
+        {gameState.isWon && (
+          <div className="mt-4 p-4 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-lg text-center shadow-lg animate-pulse">
+            <div className="text-2xl mb-2">🎉</div>
+            <p className="font-bold">Chúc mừng! Bạn đã đạt đến 2048!</p>
+            <p className="text-sm mt-1">Bạn có thể tiếp tục chơi để đạt điểm cao hơn!</p>
+          </div>
+        )}
+
+        {gameState.isGameOver && !gameState.isWon && (
+          <div className="mt-4 p-4 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded-lg text-center shadow-lg">
+            <div className="text-2xl mb-2">😞</div>
+            <p className="font-bold">Game Over!</p>
+            <p className="text-sm mt-1">Không còn nước đi nào. Thử lại nhé!</p>
+          </div>
+        )}
+
+        {/* Instructions */}
+        <div className="text-center mt-6">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            Vuốt để di chuyển các ô. Khi 2 ô có cùng số chạm nhau, chúng sẽ gộp thành một!
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

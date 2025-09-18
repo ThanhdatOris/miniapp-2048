@@ -1,4 +1,108 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+/* Global Styles for 2048 Game */
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #fef7ed 0%, #fed7aa 100%);
+  min-height: 100vh;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(135deg, #111827 0%, #374151 100%);
+  }
+}
+
+/* Prevent scrolling during game */
+.game-container {
+  touch-action: manipulation;
+}
+
+/* Touch-none utility for game board */
+.touch-none {
+  touch-action: none;
+}
+
+/* Smooth transitions for tiles */
+.tile-animation {
+  transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+/* Tile appear animation */
+@keyframes tile-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.tile-new {
+  animation: tile-appear 0.2s ease-out;
+}
+
+/* Tile merge animation */
+@keyframes tile-merge {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.tile-merged {
+  animation: tile-merge 0.15s ease-in-out;
+}
+
+/* Board shake animation for invalid moves */
+@keyframes board-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+.board-shake {
+  animation: board-shake 0.3s ease-in-out;
+}
+
+/* Touch feedback */
+button:active {
+  transform: scale(0.95);
+}
+
+/* Prevent text selection on game elements */
+.game-element {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Custom scrollbar for better mobile experience */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
 
 :root {
   --background: #ffffff;
