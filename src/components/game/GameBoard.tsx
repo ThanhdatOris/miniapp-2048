@@ -26,7 +26,7 @@ export default function GameBoard({ board, onMove, disabled = false }: GameBoard
           ${disabled ? 'disabled' : ''}
         `}
       >
-        <div className="grid grid-cols-4 gap-3 relative z-10">
+        <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full max-w-none">
           {board.flat().map((value, index) => {
             const row = Math.floor(index / 4);
             const col = index % 4;
@@ -35,7 +35,6 @@ export default function GameBoard({ board, onMove, disabled = false }: GameBoard
               <div
                 key={`${row}-${col}`}
                 className={`
-                  aspect-square flex items-center justify-center font-bold
                   game-tile ${getTileClass(value)} ${getTileTextClass(value)}
                   ${value === 0 ? '' : 'tile-pop'}
                 `}
@@ -102,7 +101,7 @@ export default function GameBoard({ board, onMove, disabled = false }: GameBoard
         <div className="text-center">
           <p className="text-xs theme-text-muted flex items-center justify-center gap-1">
             <i className="fas fa-info-circle theme-primary-color"></i>
-            Khi 2 ô có cùng số chạm nhau, chúng sẽ gộp thành một!
+            Gộp 2 ô giống nhau để tạo 1 ô mới!
           </p>
         </div>
       </div>

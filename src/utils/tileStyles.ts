@@ -35,7 +35,7 @@ export const shouldShowGlow = (value: TileValue) => {
 };
 
 // Legacy glassmorphism function for backward compatibility
-export const getGlassTileStyle = (value: TileValue, isDarkMode: boolean = false) => {
+export const getGlassTileStyle = (value: TileValue) => {
   if (value === 0) {
     return "bg-white/10 backdrop-blur-sm border border-white/20 text-transparent";
   }

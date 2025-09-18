@@ -1,16 +1,21 @@
 'use client';
 
 import { useTheme } from '@/contexts/ThemeContext';
+import { Theme } from '@/types/theme';
 import React, { useState } from 'react';
 
 export const ThemeSelector: React.FC = () => {
   const { currentTheme, availableThemes, setTheme, isDarkMode, toggleDarkMode } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
-  const getThemePreview = () => {
+  const getThemePreview = (theme?: Theme) => {
+    const targetTheme = theme || currentTheme;
+    
     return (
-      <div className="w-8 h-8 rounded-lg border theme-preview flex-shrink-0">
-        <div className="absolute bottom-0 right-0 w-3 h-3 rounded-tl-lg theme-preview-accent" />
+      <div className={`w-8 h-8 rounded-lg border-2 border-white/30 relative overflow-hidden flex-shrink-0 theme-preview-${targetTheme.id}`}>
+        <div className="absolute inset-0 theme-preview-bg" />
+        <div className="absolute bottom-0 right-0 w-3 h-3 rounded-tl-lg theme-preview-primary" />
+        <div className="absolute top-0 left-0 w-2 h-2 rounded-br-lg theme-preview-secondary" />
       </div>
     );
   };
@@ -73,7 +78,7 @@ export const ThemeSelector: React.FC = () => {
                         : 'glass-subtle hover:glass-depth-1'
                     }`}
                   >
-                    {getThemePreview()}
+                    {getThemePreview(theme)}
                     <div className="flex-1 text-left">
                       <div className="text-sm font-medium theme-text-primary">
                         {theme.name}

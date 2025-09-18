@@ -262,7 +262,7 @@ body {
   backdrop-filter: blur(20px);
   background: var(--glass-background);
   border: 1px solid var(--glass-border);
-  border-radius: 20px;
+  border-radius: 16px;
   box-shadow: 
     0 16px 40px var(--glass-shadow),
     inset 0 2px 0 rgba(255, 255, 255, 0.2),
@@ -272,6 +272,40 @@ body {
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mobile specific adjustments */
+@media (max-width: 640px) {
+  .game-board {
+    border-radius: 12px;
+    max-width: 100%;
+    min-width: 280px;
+  }
+}
+
+/* Desktop specific adjustments */
+@media (min-width: 1024px) {
+  .game-board {
+    max-width: 500px;
+    border-radius: 20px;
+  }
+}
+
+/* Grid container improvements */
+.game-board .grid {
+  width: 100%;
+  height: 100%;
+}
+
+.game-board .grid > * {
+  min-width: 0;
+  min-height: 0;
 }
 
 .game-board::before {
@@ -308,11 +342,30 @@ body {
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
-  border-radius: 12px;
+  border-radius: 8px;
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateZ(0);
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Desktop tile styling */
+@media (min-width: 640px) {
+  .game-tile {
+    border-radius: 12px;
+  }
+}
+
+/* Large desktop tile styling */
+@media (min-width: 1024px) {
+  .game-tile {
+    border-radius: 14px;
+  }
 }
 
 .game-tile::before {
@@ -454,6 +507,20 @@ body {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   position: relative;
   z-index: 1;
+  font-size: 1.25rem; /* 20px */
+}
+
+/* Responsive tile text sizing */
+@media (min-width: 640px) {
+  .tile-text {
+    font-size: 1.5rem; /* 24px */
+  }
+}
+
+@media (min-width: 1024px) {
+  .tile-text {
+    font-size: 1.75rem; /* 28px */
+  }
 }
 
 /* Light mode text improvements */
@@ -493,6 +560,67 @@ body[data-theme="light"] .glass-button:hover {
 body[data-theme="light"] .glass-card {
   background: rgba(255, 255, 255, 0.5);
   border-color: rgba(148, 163, 184, 0.3);
+}
+
+/* Theme Preview Colors */
+.theme-preview-glass-light .theme-preview-bg {
+  background: linear-gradient(135deg, #e0e7ff 0%, #fce7f3 50%, #fef3c7 100%);
+}
+.theme-preview-glass-light .theme-preview-primary {
+  background-color: #2563eb;
+}
+.theme-preview-glass-light .theme-preview-secondary {
+  background-color: #7c3aed;
+}
+
+.theme-preview-glass-dark .theme-preview-bg {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+}
+.theme-preview-glass-dark .theme-preview-primary {
+  background-color: #60a5fa;
+}
+.theme-preview-glass-dark .theme-preview-secondary {
+  background-color: #a78bfa;
+}
+
+.theme-preview-ocean .theme-preview-bg {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 30%, #0c4a6e 100%);
+}
+.theme-preview-ocean .theme-preview-primary {
+  background-color: #0ea5e9;
+}
+.theme-preview-ocean .theme-preview-secondary {
+  background-color: #06b6d4;
+}
+
+.theme-preview-forest .theme-preview-bg {
+  background: linear-gradient(135deg, #0f172a 0%, #1a202c 30%, #2d3748 60%, #1a365d 100%);
+}
+.theme-preview-forest .theme-preview-primary {
+  background-color: #10b981;
+}
+.theme-preview-forest .theme-preview-secondary {
+  background-color: #34d399;
+}
+
+.theme-preview-sunset .theme-preview-bg {
+  background: linear-gradient(135deg, #0f172a 0%, #2d1b69 30%, #8b5cf6 60%, #f59e0b 100%);
+}
+.theme-preview-sunset .theme-preview-primary {
+  background-color: #f59e0b;
+}
+.theme-preview-sunset .theme-preview-secondary {
+  background-color: #f97316;
+}
+
+.theme-preview-neon .theme-preview-bg {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 30%, #16213e 60%, #0f3460 100%);
+}
+.theme-preview-neon .theme-preview-primary {
+  background-color: #00ffff;
+}
+.theme-preview-neon .theme-preview-secondary {
+  background-color: #ff00ff;
 }
 
 /* Animation Classes */

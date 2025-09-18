@@ -10,7 +10,7 @@ import { useGame } from '@/hooks/useGame';
 import { useState } from 'react';
 
 export default function Home() {
-  const { gameState, move, restart } = useGame();
+  const { gameState, move, restart, undo } = useGame();
   const { toggleDarkMode, isDarkMode } = useTheme();
   const [showControls, setShowControls] = useState(false);
 
@@ -39,7 +39,7 @@ export default function Home() {
           
           <button
             onClick={() => setShowControls(!showControls)}
-            className="glass-button p-3 lg:hidden"
+            className="glass-button p-3 hidden lg:block"
             aria-label="Toggle control hints"
           >
             <i className="fas fa-gamepad text-lg theme-text-primary" />
@@ -48,7 +48,7 @@ export default function Home() {
       </div>
 
       {/* Game Container */}
-      <div className="glass-card p-6 space-y-6 w-full max-w-md">
+      <div className="glass-card p-4 sm:p-6 space-y-4 sm:space-y-6 w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
         {/* Title */}
         <div className="text-center">
           <h1 className="text-4xl font-bold theme-text-primary mb-2">2048</h1>
@@ -61,7 +61,7 @@ export default function Home() {
         <ScoreBoard score={gameState.score} highScore={gameState.highScore} />
 
         {/* Game Board */}
-        <div className="flex justify-center">
+        <div className="flex justify-center items-center w-full">
           <GameBoard board={gameState.board} onMove={move} />
         </div>
 
@@ -83,29 +83,15 @@ export default function Home() {
           </div>
         )}
 
-        {/* Controls */}
+        {/* Controls - Always visible on mobile, toggleable on desktop */}
+        <div className="block lg:hidden">
+          <ControlButtons onRestart={restart} onUndo={undo} canUndo={gameState.canUndo} />
+        </div>
         {showControls && (
-          <ControlButtons onRestart={restart} canUndo={gameState.canUndo} />
+          <div className="hidden lg:block">
+            <ControlButtons onRestart={restart} onUndo={undo} canUndo={gameState.canUndo} />
+          </div>
         )}
-      </div>
-
-      {/* Instructions */}
-      <div className="mt-6 text-center space-y-2">
-        <div className="glass-subtle p-3 rounded-lg max-w-md">
-          <p className="theme-text-secondary text-xs">
-            <span className="hidden lg:inline">
-              Use <kbd className="glass-button px-2 py-1 text-xs">WASD</kbd> or arrow keys to play
-            </span>
-            <span className="lg:hidden">
-              Swipe to move tiles
-            </span>
-          </p>
-        </div>
-        
-        <div className="flex justify-center gap-4 text-xs theme-text-muted">
-          <span>Score: {gameState.score}</span>
-          <span>Best: {gameState.highScore}</span>
-        </div>
       </div>
     </div>
   );
